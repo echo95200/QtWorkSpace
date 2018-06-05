@@ -17,21 +17,21 @@
    <widget class="QLineEdit" name="lineEditFacture">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>130</y>
+      <x>70</x>
+      <y>70</y>
       <width>391</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>20180329010001</string>
+     <string>2182241398</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>90</y>
+      <x>70</x>
+      <y>30</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QPushButton" name="pushButtonPrint">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>130</y>
+      <x>660</x>
+      <y>70</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -56,8 +56,8 @@
    <widget class="QPushButton" name="pushButtonSetting">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>500</y>
+      <x>660</x>
+      <y>120</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -66,13 +66,26 @@
      <string>Setting</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QPushButton" name="pushButtonUpdateView">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>250</y>
-      <width>391</width>
-      <height>241</height>
+      <x>570</x>
+      <y>540</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>UpdateView</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widgetShow" native="true">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>180</y>
+      <width>681</width>
+      <height>351</height>
      </rect>
     </property>
    </widget>
