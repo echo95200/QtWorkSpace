@@ -50,6 +50,11 @@ private:
     QSqlQuery* m_orders;
 
     QString databaseFilePath;
+    QString databaseDriveName;
+    QString databaseUsername;
+    QString databasePassword;
+    int databasePort;
+    QString databaseHostName;
     QSettings *configIni;
 };
 

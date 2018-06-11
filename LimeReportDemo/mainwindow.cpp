@@ -20,7 +20,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow), m_progressDialog(0), m_customers(0), m_orders(0)
+    ui(new Ui::MainWindow), m_progressDialog(0)
 {
     ui->setupUi(this);
     report = new LimeReport::ReportEngine(this);
@@ -48,16 +48,24 @@ MainWindow::~MainWindow()
 bool MainWindow::initDatabase()
 {
     bool flag = false;
+//    databaseFilePath = "/home/echo/ventap.fdb";
     configIni->beginGroup("LimeReportDemo");
-    databaseFilePath = configIni->value("databaseFilePath",databaseFilePath).toString();
+    databaseFilePath = configIni->value("databaseFilePath").toString();
+    databaseDriveName = configIni->value("databaseDriverName").toString();
+    databaseUsername = configIni->value("databaseUserName").toString();
+    databasePassword = configIni->value("databasePassword").toString();
+    databasePort = configIni->value("databasePort").toInt();
+    databaseHostName = configIni->value("databaseHostName").toString();
     configIni->endGroup();
     QFile dbFile(databaseFilePath);
     if(dbFile.exists())
     {
-        m_db = QSqlDatabase::addDatabase("QIBASE");
+        m_db = QSqlDatabase::addDatabase(databaseDriveName);
         m_db.setDatabaseName(dbFile.fileName());
-        m_db.setUserName("SYSDBA");
-        m_db.setPassword("masterkey");
+        m_db.setUserName(databaseUsername);
+        m_db.setPassword(databasePassword);
+        m_db.setHostName(databaseHostName);
+        m_db.setPort(databasePort);
         if(m_db.open()){
             flag = true;
         }
@@ -108,12 +116,16 @@ void MainWindow::setDatabase(QString invoiceNumber)
 
 
     //write setting file
-
     QString initFilePath = QCoreApplication::applicationDirPath();
     QSettings *configIni = new QSettings(tr("%1/LimeReportDemo.ini").arg(initFilePath),QSettings::IniFormat);
     configIni->setIniCodec(QTextCodec::codecForName("System"));
     configIni->beginGroup("LimeReportDemo");
     configIni->setValue("databaseFilePath",this->databaseFilePath);
+    configIni->setValue("databaseDriverName",m_db.driverName());
+    configIni->setValue("databaseHostName",m_db.hostName());
+    configIni->setValue("databaseUserName",m_db.userName());
+    configIni->setValue("databasePassword",m_db.password());
+    configIni->setValue("databasePort",m_db.port());
     configIni->setValue("sqlStrTicket",sqlStrTicket);
     configIni->setValue("sqlStrInvoice",sqlStrInvoice);
     configIni->setValue("sqlStrIicDet",sqlStrIicDet);
@@ -123,9 +135,10 @@ void MainWindow::setDatabase(QString invoiceNumber)
     configIni->setValue("sqlQueryTax",sqlQueryTax);
     configIni->setValue("sqlQuery",sqlQuery);
     configIni->endGroup();
-    */
 
+    */
     //read setting file
+
     configIni->beginGroup("LimeReportDemo");
     QString sqlStrTicket = configIni->value("sqlStrTicket").toString();
     QString sqlStrInvoice = configIni->value("sqlStrInvoice").toString();
@@ -190,24 +203,23 @@ void MainWindow::setDatabase(QString invoiceNumber)
         TTCList.append("");
     }
 
-    //test
-    /*
-    QString taxListModelName;
-    QString TaxListName;
-    QString TAXDBName = "TEST";
-    int index = 1;
-    while (index < 5) {
-        taxListModelName.append(QString::number(index));
-        TaxListName.append(QString::number(index));
-        TAXDBName = "TEST";
-        TAXDBName.append(QString::number(index));
-        QStringListModel* taxListModelName = new QStringListModel();
-        QStringList TaxListName(TaxList.value(index));
-        taxListModelName->setStringList(TaxListName);
-        report->dataManager()->addModel(TAXDBName,taxListModelName,true);
-        index++;
-    }
-    */
+//    QString taxListModelName;
+//    QString TaxListName;
+//    QString TAXDBName = "TEST";
+//    int index = 1;
+//    while (index < 5) {
+//        taxListModelName.append(QString::number(index));
+//        TaxListName.append(QString::number(index));
+//        TAXDBName = "TEST";
+//        TAXDBName.append(QString::number(index));
+//        QStringListModel* taxListModelName = new QStringListModel();
+//        QStringList TaxListName(TaxList.value(index-1));
+//        taxListModelName->setStringList(TaxListName);
+//        report->dataManager()->addModel(TAXDBName,taxListModelName,true);
+//        qDebug () << TAXDBName << TaxListName;
+//        index++;
+//    }
+
 
     // TAUX
     QStringListModel* taxListModel1 = new QStringListModel();
