@@ -7,6 +7,7 @@
 #include <QProgressDialog>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQueryModel>
+#include <QFile>
 #include "lrreportengine.h"
 
 namespace Ui {
@@ -21,6 +22,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void setDatabase(QString invNum);
+    bool initDatabase();
+
 private slots:
     void on_pushButton_clicked();
 
@@ -32,7 +36,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-//    void prepareData(QSqlQuery* ds, LimeReport::CallbackInfo info,QVariant& data);
 
     LimeReport::ReportEngine *report;
     QProgressDialog* m_progressDialog;
@@ -45,6 +48,9 @@ private:
     int m_currentOrderRecord;
     QSqlQuery* m_customers;
     QSqlQuery* m_orders;
+
+    QString databaseFilePath;
+    QSettings *configIni;
 };
 
 #endif // MAINWINDOW_H
