@@ -18,6 +18,7 @@
 #include <QTextCodec>
 #include <QSettings>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow), m_progressDialog(0)
@@ -82,7 +83,6 @@ bool MainWindow::initDatabase()
 void MainWindow::setDatabase(QString invoiceNumber)
 {
     // Query String
-    /*
     QString sqlStrTicket = "SELECT T_TICKET.* FROM T_INVOICE "
                             "INNER JOIN T_TICKET ON T_INVOICE.TICKET_ID = T_TICKET.ID "
                             "WHERE T_INVOICE.INVOICE_NUM = ";
@@ -114,7 +114,7 @@ void MainWindow::setDatabase(QString invoiceNumber)
                        "INNER JOIN T_INVOICE ON T_TICKET_PAYMENT.TICKET_ID = T_INVOICE.TICKET_ID "
                        "WHERE T_INVOICE.INVOICE_NUM = ";
 
-
+    /*
     //write setting file
     QString initFilePath = QCoreApplication::applicationDirPath();
     QSettings *configIni = new QSettings(tr("%1/LimeReportDemo.ini").arg(initFilePath),QSettings::IniFormat);
@@ -138,7 +138,7 @@ void MainWindow::setDatabase(QString invoiceNumber)
 
     */
     //read setting file
-
+    /*
     configIni->beginGroup("LimeReportDemo");
     QString sqlStrTicket = configIni->value("sqlStrTicket").toString();
     QString sqlStrInvoice = configIni->value("sqlStrInvoice").toString();
@@ -149,6 +149,7 @@ void MainWindow::setDatabase(QString invoiceNumber)
     QString sqlQueryTax = configIni->value("sqlQueryTax").toString();
     QString sqlQuery = configIni->value("sqlQuery").toString();
     configIni->endGroup();
+    */
 
 
     //Get the information of the Ticket and Invoice
@@ -194,6 +195,8 @@ void MainWindow::setDatabase(QString invoiceNumber)
         HTList.append(QString::number(queryTax.value(1).toDouble(),10,2));
         TVAList.append(QString::number(queryTax.value(2).toDouble(),10,2));
         TTCList.append(QString::number(queryTax.value(3).toDouble(),10,2));
+        //qDebug() << queryTax;
+        qDebug() << queryTax.record();
     }
     while (sizeQueryTax < 4) {
         sizeQueryTax++;

@@ -22,7 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void setDatabase(QString invNum);
+    void setDatabase(QString invoiceNumber);
     bool initDatabase();
 
 private slots:

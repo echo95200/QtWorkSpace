@@ -32,7 +32,8 @@
 
 #include <QObject>
 #include <QSettings>
-#include <QPrintDialog>
+//#include <QPrintDialog>
+#include <QtPrintSupport/QPrintDialog>
 
 #include "lrglobal.h"
 #include "lrdatasourcemanagerintf.h"
